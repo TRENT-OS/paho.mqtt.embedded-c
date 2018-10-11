@@ -29,3 +29,7 @@ add_library(MQTTPacketServer SHARED MQTTFormat MQTTPacket
             MQTTSerializePublish MQTTDeserializePublish
             MQTTConnectServer MQTTSubscribeServer MQTTUnsubscribeServer)
 target_compile_definitions(MQTTPacketServer PRIVATE MQTT_SERVER)
+
+target_link_libraries(paho-embed-mqtt3c muslc)
+target_link_libraries(MQTTPacketServer muslc)
+target_link_libraries(MQTTPacketClient muslc)
