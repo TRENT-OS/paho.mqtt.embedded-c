@@ -14,3 +14,9 @@ target_include_directories(paho-embed-mqtt3cc PUBLIC seL4)
 target_include_directories(paho-embed-mqtt3cc PUBLIC .)
 
 target_link_libraries( paho-embed-mqtt3cc muslc )
+
+if (LibLwip)
+    target_compile_definitions(paho-embed-mqtt3cc PRIVATE
+        LWIP=1)
+    target_link_libraries( paho-embed-mqtt3cc lwip )
+endif()

@@ -1,10 +1,15 @@
 #if !defined(__MQTT_SEL4_)
 #define __MQTT_SEL4_
 
+#include <stdint.h>
+
 typedef struct Timer
 {
-	int dummy;
-} Timer;
+    void*   		impl;
+    uint64_t 	    startNS;
+    unsigned        timeSpanMS;
+}
+Timer;
 
 void TimerInit(Timer*);
 char TimerIsExpired(Timer*);
@@ -18,9 +23,6 @@ typedef struct Network
     int (*mqttread) (struct Network*, unsigned char*, int, int);
     int (*mqttwrite) (struct Network*, unsigned char*, int, int);
 } Network;
-
-int seL4_read(Network*, unsigned char*, int, int);
-int seL4_write(Network*, unsigned char*, int, int);
 
 void NetworkInit(Network*);
 int NetworkConnect(Network*, char*, int);
