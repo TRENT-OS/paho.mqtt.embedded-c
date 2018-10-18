@@ -13,7 +13,7 @@ target_compile_definitions(paho-embed-mqtt3cc PRIVATE
 target_include_directories(paho-embed-mqtt3cc PUBLIC seL4)
 target_include_directories(paho-embed-mqtt3cc PUBLIC .)
 
-target_link_libraries( paho-embed-mqtt3cc muslc libsel4platsupport )
+target_link_libraries( paho-embed-mqtt3cc muslc )
 
 if (LibLwip)
     target_compile_definitions(paho-embed-mqtt3cc PRIVATE
@@ -22,4 +22,5 @@ if (LibLwip)
 elseif (UartSocket)
     target_compile_definitions(paho-embed-mqtt3cc PRIVATE
         UART_SOCKET=1)
+    target_link_libraries( paho-embed-mqtt3cc sel4platsupport )
 endif()
