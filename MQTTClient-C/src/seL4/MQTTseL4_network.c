@@ -1,13 +1,12 @@
-#include "MQTTseL4.h"
 #if defined(LWIP)
+
+#include "MQTTseL4.h"
 #include "lwip/sockets.h"
 #include "lwip/netdb.h"
 #include "lwip/arch.h"
-#endif
 
 static int seL4_read(Network* n, unsigned char* buffer, int len, int timeout_ms)
 {
-#if defined(LWIP)
     struct timeval interval = {timeout_ms / 1000, (timeout_ms % 1000) * 1000};
     if (interval.tv_sec < 0 || (interval.tv_sec == 0 && interval.tv_usec <= 0))
     {
@@ -39,14 +38,10 @@ static int seL4_read(Network* n, unsigned char* buffer, int len, int timeout_ms)
             bytes += rc;
     }
     return bytes;
-#else
-#   error WE HAVE NO IMPLEMENTATION
-#endif
 }
 
 static int seL4_write(Network* n, unsigned char* buffer, int len, int timeout_ms)
 {
-#if defined(LWIP)
     struct timeval tv;
 
     tv.tv_sec = 0;  /* 30 Secs Timeout */
@@ -59,9 +54,6 @@ static int seL4_write(Network* n, unsigned char* buffer, int len, int timeout_ms
                 sizeof(struct timeval));
     int	rc = write(n->my_socket, buffer, len);
     return rc;
-#else
-#   error WE HAVE NO IMPLEMENTATION
-#endif
 }
 
 void NetworkInit(Network* n)
@@ -73,7 +65,6 @@ void NetworkInit(Network* n)
 
 int NetworkConnect(Network* n, char* addr, int port)
 {
-#if defined(LWIP)
     int type = SOCK_STREAM;
     struct sockaddr_in address;
     int rc = -1;
@@ -125,16 +116,11 @@ int NetworkConnect(Network* n, char* addr, int port)
         }
     }
     return rc;
-#else
-#   error WE HAVE NO IMPLEMENTATION
-#endif
 }
 
 void NetworkDisconnect(Network* n)
 {
-#if  defined(LWIP)
     close(n->my_socket);
-#else
-#   error WE HAVE NO IMPLEMENTATION
-#endif
 }
+
+#endif
