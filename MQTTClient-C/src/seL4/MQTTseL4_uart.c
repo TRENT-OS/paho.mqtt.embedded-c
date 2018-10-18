@@ -24,5 +24,5 @@ int NetworkConnect(Network* n, char* addr, int port)
 
 void NetworkDisconnect(Network* n)
 {
-    return 0;
+    return ;
 }
