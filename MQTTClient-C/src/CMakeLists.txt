@@ -22,5 +22,5 @@ if (LibLwip)
 elseif (UartSocket)
     target_compile_definitions(paho-embed-mqtt3cc PRIVATE
         UART_SOCKET=1)
-    target_link_libraries( paho-embed-mqtt3cc sel4platsupport )
+    target_link_libraries( paho-embed-mqtt3cc sel4platsupport uart_socket)
 endif()
