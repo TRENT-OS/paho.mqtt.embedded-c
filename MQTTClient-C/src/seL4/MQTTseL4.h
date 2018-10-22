@@ -2,10 +2,12 @@
 #define __MQTT_SEL4_
 
 #include <stdint.h>
+#include "uart_hdlc.h"
+#include "uart_io_guest.h"
 
 typedef struct Timer
 {
-    void*   		impl;
+    void*           impl;
     uint64_t 	    startNS;
     unsigned        timeSpanMS;
 }
@@ -19,10 +21,12 @@ int TimerLeftMS(Timer*);
 
 typedef struct Network
 {
-    int my_socket;
+    UartIoGuest uart;
+    UartHdlc    uartHdlc;
     int (*mqttread) (struct Network*, unsigned char*, int, int);
     int (*mqttwrite) (struct Network*, unsigned char*, int, int);
-} Network;
+}
+Network;
 
 void NetworkInit(Network*);
 int NetworkConnect(Network*, char*, int);
