@@ -34,7 +34,7 @@ void TimerInit(Timer* timer)
 
 char TimerIsExpired(Timer* timer)
 {
-    return (NowNS(timer) - timer->startNS) / 1000 < timer->timeSpanMS;
+    return ElapsedMS(timer) > timer->timeSpanMS;
 }
 
 void TimerCountdownMS(Timer* timer, unsigned int timeout)
